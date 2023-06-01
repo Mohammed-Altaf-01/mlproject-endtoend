@@ -11,7 +11,7 @@ from sklearn.ensemble import AdaBoostRegressor,GradientBoostingRegressor,RandomF
 from sklearn.metrics import r2_score
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.tree import DecisionTreeRegressor
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import Ridge
 
 #custom imports 
 from src.exception import CustomException
@@ -38,15 +38,26 @@ class ModelTrainer:
                 test_arr[:,:-1],
                 test_arr[:,-1]
             )
+
+            # we can further do hyperparameter tuning for all these algorithms. 
             models = {
                 "Random Forest":RandomForestRegressor(),
                 "Decision Tree": DecisionTreeRegressor(),
-                "Gradinet Boosting": GradientBoostingRegressor(),
+                "Gradient Boosting": GradientBoostingRegressor(),
                 "Ada Boosting":AdaBoostRegressor(),
-                'Linear Regressor':LinearRegression(),
-                "K neaerest neighbours regressor":KNeighborsRegressor(),}
-            
-            model_report:dict = evaluate_models(X_train=X_train,y_train=y_train,X_test=X_test,y_test=y_test,models=models)
+                'Ridge Regressor':Ridge(),
+                "K nearest neighbours regressor":KNeighborsRegressor(),}
+            params = {
+                "Random Forest":{'n_estimators': [8,16,32,64,128,256]},
+                "Decision Tree":{ 'criterion':['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],},
+                "Gradient Boosting":{'learning_rate':[.1,.01,.05,.001],
+                    'subsample':[0.6,0.7,0.75,0.8,0.85,0.9],},
+                "Ada Boosting":{ 'learning_rate':[.1,.01,0.5,.001], 'n_estimators': [8,16,32,64,128,256]},
+                "Ridge Regressor":{'alpha':[0.01,0.1,1,1.2],},
+                "K nearest neighbours regressor":{'n_neighbors':[2,3,4,5,6],"weights":['uniform','distance']},
+            }
+          
+            model_report:dict = evaluate_models(X_train=X_train,y_train=y_train,X_test=X_test,y_test=y_test,models=models,param=params)
 
             best_model_score = max(sorted(model_report.values()))
             best_model_name = list(model_report.keys())[list(model_report.values()).index(best_model_score)]
