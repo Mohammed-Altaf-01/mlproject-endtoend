@@ -1,21 +1,14 @@
+# third party and custom imports 
 from flask import Flask, request,render_template
-import numpy as np 
-import pandas as pd 
-
-from sklearn.preprocessing import StandardScaler
-
 from src.pipelines.predict_pipeline import CustomData,PredictPipeline
 
 app = Flask(__name__)
 
-@app.route('/')
-def index():
-    return render_template('index.html')
 
-@app.route('/predictdata',methods=["GET",'POST'])
+@app.route('/',methods=["GET",'POST'])
 def predict_datapoint():
     if request.method =="GET":
-        return render_template("home.html")
+        return render_template("predict.html")
     else:
         data = CustomData(
             gender= request.form.get('gender'),
@@ -32,8 +25,8 @@ def predict_datapoint():
         predict_pipeline = PredictPipeline()
         results = predict_pipeline.predict(pred_df)
         print(results)
-        return render_template('home.html',results=round(results[0]))
+        return render_template('predict.html',results=round(results[0]))
     
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
