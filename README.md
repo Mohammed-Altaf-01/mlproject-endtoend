@@ -16,6 +16,10 @@ Maths is a kind of subject which most of the Students suffer from, but there is 
 
 # Quickstart/Demo
 
+<img src="readmestuff/Math Score Predictor - Google Chrome 2023-06-03 20-47-53.gif" width=100%>
+
+---
+
 # DataSource
 
 All the have been collected from the kaggle platform Students Performance
