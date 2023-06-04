@@ -52,9 +52,11 @@ The chart above shows the distribution of marks for each subject included the re
 
 # Deployement
 
-Regression models have been made using various algorithms such as RandomForest Regressors, Ridge Regression, Linear Regression, K nearest Neighbour Regressor,Decision Tree Regressor, Ada boost Regressor,XGboost Regressor and Cat Boost Regressor.
+- Regression models have been made using various algorithms such as RandomForest Regressors, Ridge Regression, Linear Regression, K nearest Neighbour Regressor,Decision Tree Regressor, Ada boost Regressor,XGboost Regressor and Cat Boost Regressor.
 
-They were evaluated using metric R2Score, Mean absolute Error and Root Mean Square Error. After the evaluation, **Ridge Regressor** was the model with the highest accuracy of around 88 percent was used as final model, with MSE of around 14 marks.
+- They were evaluated using metric R2Score, Mean absolute Error and Root Mean Square Error. After the evaluation, **Ridge Regressor** was the model with the highest accuracy of around 88 percent was used as final model, with MSE of around 14 marks.
+
+- The Mlmodel is further served as an API to the front-end and has been deployed on AWS EC2 instance.
 
 # Installation
 
